@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "arrow-spacing":["warn",{ "before": true, "after": true }],
+      "comma-dangle": ["error", "never"],
+      "indent": ["error", "tab"],
+      "no-multiple-empty-lines": ["error", {"max": 1}],
+      "no-trailing-spaces": ["warn"],
+      "no-unused-vars": "off",
+      "object-curly-spacing": ["error", "always"],
+      "quotes": ["error", "single",  { "avoidEscape": true }],
+      "semi": [2, "always"],
+      "switch-colon-spacing": ["error", {"after": true, "before": false}]       
+
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser"
+}
+  
