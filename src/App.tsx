@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import UsedBon from './screens/UsedBon';
+import SuperSecret from './screens/SuperSecret';
 
 const client = new ApolloClient({
 	request: (operation) => {
@@ -34,6 +35,9 @@ const App: React.FC = () => {
 					</Route>
 					<Route path="/used">
 						<UsedBon/>
+					</Route>
+					<Route path="/supersecret">
+						<SuperSecret/>
 					</Route>
 				</Switch>
 			</Router>

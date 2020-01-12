@@ -351,6 +351,17 @@ export type GetUsedBonQuery = (
   )> }
 );
 
+export type GetAllBonsQueryVariables = {};
+
+
+export type GetAllBonsQuery = (
+  { __typename?: 'query_root' }
+  & { bons: Array<(
+    { __typename?: 'bons' }
+    & Pick<Bons, 'id' | 'name' | 'used'>
+  )> }
+);
+
 
 export const MarkAsUsedDocument = gql`
     mutation markAsUsed($id: uuid!) {
@@ -458,3 +469,37 @@ export function useGetUsedBonLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryH
 export type GetUsedBonQueryHookResult = ReturnType<typeof useGetUsedBonQuery>;
 export type GetUsedBonLazyQueryHookResult = ReturnType<typeof useGetUsedBonLazyQuery>;
 export type GetUsedBonQueryResult = ApolloReactCommon.QueryResult<GetUsedBonQuery, GetUsedBonQueryVariables>;
+export const GetAllBonsDocument = gql`
+    query GetAllBons {
+  bons {
+    id
+    name
+    used
+  }
+}
+    `;
+
+/**
+ * __useGetAllBonsQuery__
+ *
+ * To run a query within a React component, call `useGetAllBonsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllBonsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllBonsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllBonsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllBonsQuery, GetAllBonsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllBonsQuery, GetAllBonsQueryVariables>(GetAllBonsDocument, baseOptions);
+      }
+export function useGetAllBonsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllBonsQuery, GetAllBonsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllBonsQuery, GetAllBonsQueryVariables>(GetAllBonsDocument, baseOptions);
+        }
+export type GetAllBonsQueryHookResult = ReturnType<typeof useGetAllBonsQuery>;
+export type GetAllBonsLazyQueryHookResult = ReturnType<typeof useGetAllBonsLazyQuery>;
+export type GetAllBonsQueryResult = ApolloReactCommon.QueryResult<GetAllBonsQuery, GetAllBonsQueryVariables>;

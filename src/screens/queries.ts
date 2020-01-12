@@ -22,3 +22,13 @@ export const QUERY_USED_BON = gql`
         }
     }
 `;
+
+export const QUERY_ALL_BONS = gql`
+    query GetAllBons {
+            bons {
+            id
+            name
+            used
+        }
+    }
+`;
