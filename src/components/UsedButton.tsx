@@ -2,8 +2,9 @@ import React from 'react';
 // import patte from '../img/patte.png';
 
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import { useMarkAsUsedMutation } from '../generated/graphql';
+import BackButton from './BackButton';
 
 const Centerd = styled.div`
     text-align: center;
@@ -25,7 +26,8 @@ const Used = ({ id = '', refetch } : {id?: string, refetch: any}) => {
 	};
 	return (
 		<Centerd>
-			<Button onClick={onClick}>Marquer comme utilisé</Button>
+			<BackButton />
+			<Button onClick={onClick}><Icon name={'paw'}/>Marquer comme utilisé</Button>
 		</Centerd>);
 };
 

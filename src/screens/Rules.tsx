@@ -53,7 +53,7 @@ const Rules = () => {
 			<ul>
 				<li>Pas plus d&apos;un tirage de boulette par semaine.</li>
 				<li>Boulette à utiliser sous 7 jours.</li>
-				<li>Sac de boulettes valable jusqu&apos;au 31/12/20.</li>
+				<li>Sac de boulettes valable jusqu&apos;au 31/12/2020.</li>
 			</ul>
 			<div className={'buttonContainer'}>
 				<Button as={Link} to={'/used'}>Voir les bons utilisés</Button>

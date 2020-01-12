@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import usedImage from '../img/used.png';
 import background from '../img/background.jpg';
 import UsedButton from '../components/UsedButton';
+import BackButton from '../components/BackButton';
 
 const StyledBon = styled.div`
 	text-align: center;
@@ -53,15 +54,21 @@ const Resto = () => {
 	return (
 		<StyledBon>
 			{data?.bons[0] && (
-				<div key={data.bons[0].id}>
-					{data.bons[0].image && <img className={'main'} src={data.bons[0].image}/>}
-					<h1 className={'title'}>{data.bons[0].name}</h1>
-					<div className={'description'}>{data.bons[0].text}</div>
+				<>
+					<div key={data.bons[0].id}>
+						{data.bons[0].image && <img className={'main'} src={data.bons[0].image}/>}
+						<h1 className={'title'}>{data.bons[0].name}</h1>
+						<div className={'description'}>{data.bons[0].text}</div>
 
-					{data.bons[0].used
-						? <img className={'used'} src={usedImage}/>
-						: <UsedButton id={data.bons[0].id} refetch={refetch}/>}
-				</div>
+						{data.bons[0].used
+							?
+							<>
+								<img className={'used'} src={usedImage}/><BackButton/>
+							</>
+							: <UsedButton id={data.bons[0].id} refetch={refetch}/>}
+					</div>
+
+				</>
 			)}
 		</StyledBon>
 	);

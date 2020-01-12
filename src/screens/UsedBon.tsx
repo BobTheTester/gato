@@ -8,6 +8,7 @@ import background from '../img/background.jpg';
 import usedImage from '../img/used.png';
 import { useGetUsedBonQuery } from '../generated/graphql';
 import { Link } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 
 const StyledUsedBon = styled.div`
 	text-align: center;
@@ -38,7 +39,7 @@ const UsedBon = () => {
 	if(loading) return <Loading/>;
 
 	if ( data && !data.bons.length){
-		return <Loading text={'Trop la chance t\'as encore tout tes bons'}/>;
+		return <Loading text={'Trop la chance t\'as encore tout tes bons'} backButton={true}/>;
 	}
 
 	if (error) console.error('oops', error);
@@ -49,6 +50,7 @@ const UsedBon = () => {
 			<ul>
 				{data?.bons.map(bon => <li key={bon.id}><Link to={`/bon/${bon.id}`}>{bon.name} (utilisé le {moment(bon.updated_at).format('DD/MM/Y')})</Link></li>)}
 			</ul>
+			<BackButton />
 		</StyledUsedBon>
 	);
 };
