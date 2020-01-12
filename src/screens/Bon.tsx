@@ -56,7 +56,7 @@ const Resto = () => {
 			{data?.bons[0] && (
 				<>
 					<div key={data.bons[0].id}>
-						{data.bons[0].image && <img className={'main'} src={data.bons[0].image}/>}
+						{data.bons[0].image && <img className={'main'} src={`/img/${data.bons[0].image}`}/>}
 						<h1 className={'title'}>{data.bons[0].name}</h1>
 						<div className={'description'}>{data.bons[0].text}</div>
 
