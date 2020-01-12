@@ -312,7 +312,8 @@ export type Uuid_Comparison_Exp = {
 };
 
 export type MarkAsUsedMutationVariables = {
-  id: Scalars['uuid']
+  id: Scalars['uuid'],
+  used: Scalars['Boolean']
 };
 
 
@@ -364,8 +365,8 @@ export type GetAllBonsQuery = (
 
 
 export const MarkAsUsedDocument = gql`
-    mutation markAsUsed($id: uuid!) {
-  update_bons(where: {id: {_eq: $id}}, _set: {used: true}) {
+    mutation markAsUsed($id: uuid!, $used: Boolean!) {
+  update_bons(where: {id: {_eq: $id}}, _set: {used: $used}) {
     returning {
       used
     }
@@ -388,6 +389,7 @@ export type MarkAsUsedMutationFn = ApolloReactCommon.MutationFunction<MarkAsUsed
  * const [markAsUsedMutation, { data, loading, error }] = useMarkAsUsedMutation({
  *   variables: {
  *      id: // value for 'id'
+ *      used: // value for 'used'
  *   },
  * });
  */

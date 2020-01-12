@@ -18,7 +18,7 @@ const Used = ({ id = '', refetch } : {id?: string, refetch: any}) => {
 	const [markAsUsedMutation] = useMarkAsUsedMutation();
 	const onClick = () => {
 		{
-			markAsUsedMutation({ variables: { id } }).then(({ data }) => {
+			markAsUsedMutation({ variables: { id, used: true } }).then(({ data }) => {
 				if(data?.update_bons?.returning[0].used) refetch();
 			});
 		}
