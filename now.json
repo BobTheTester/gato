@@ -1,0 +1,8 @@
+{
+    "build": {
+      "env": {
+        "REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET": "@react_app_hasura_graphql_admin_secret",
+        "REACT_APP_HASURA_GRAPHQL_URL": "react_app_hasura_graphql_url"
+      }
+    }
+  }
