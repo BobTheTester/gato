@@ -1,48 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './App.css'
+import StyledRules from './screens/Rules'
+import Bon from './screens/Bon'
+import 'semantic-ui-css/semantic.min.css'
+import UsedBon from './screens/UsedBon'
+import SuperSecret from './screens/SuperSecret'
 
-import './App.css';
-import StyledRules from './screens/Rules';
-import Bon from './screens/Bon';
-import 'semantic-ui-css/semantic.min.css';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
-import UsedBon from './screens/UsedBon';
-import SuperSecret from './screens/SuperSecret';
-
-const client = new ApolloClient({
-	request: (operation) => {
-		operation.setContext({
-			headers: {
-				'x-hasura-admin-secret': `${process.env.REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET}`
-			}
-		});
-	},
-	uri: `${process.env.REACT_APP_HASURA_GRAPHQL_URL}`
-});
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <StyledRules />
+  },
+  { path: '/bon/:id', element: <Bon /> },
+  {
+    path: '/used',
+    element: <UsedBon />
+  },
+  {
+    path: 'supersecret',
+    element: <SuperSecret />
+  }
+])
 
 const App: React.FC = () => {
+  return <RouterProvider router={router} />
+}
 
-	return (
-		<ApolloProvider client={client}>
-			<Router>
-				<Switch>
-					<Route exact path="/">
-						<StyledRules/>
-					</Route>
-					<Route path="/bon/:id">
-						<Bon/>
-					</Route>
-					<Route path="/used">
-						<UsedBon/>
-					</Route>
-					<Route path="/supersecret">
-						<SuperSecret/>
-					</Route>
-				</Switch>
-			</Router>
-		</ApolloProvider>
-	);
-};
-
-export default App;
+export default App

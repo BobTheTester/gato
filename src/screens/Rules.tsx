@@ -21,7 +21,7 @@ const StyledRules = styled.div`
         margin-bottom: 1rem;
     }
 
-    ul {
+    ul, div {
         width: 80%;
         margin: auto;
         font-size: 1.5rem;
@@ -34,6 +34,7 @@ const StyledRules = styled.div`
 
     .buttonContainer {
         text-align: center;
+        margin-bottom: 2rem;
     }
     
     a.ui.button {
@@ -50,13 +51,16 @@ const Rules = () => {
 				<img src={logo} className="App-logo" alt="logo" />
 				<Header.Content>Règles du chat</Header.Content>
 			</Header>
+			<div>À la base c&apos;était:</div>
+			<br/>
 			<ul>
 				<li>Pas plus d&apos;un tirage de boulette par semaine.</li>
 				<li>Boulette à utiliser sous 7 jours.</li>
-				<li>Sac de boulettes valable jusqu&apos;au 31/12/2020.</li>
+				<li>Bol de boulettes valable jusqu&apos;au 31/12/2020.</li>
 			</ul>
+			<div>Puis Corona a tout foutu en l&apos;air...</div>
 			<div className={'buttonContainer'}>
-				<Button as={Link} to={'/used'}>Voir les bons utilisés</Button>
+				<Button as={Link} to={'/used'}>Boulettes utilisées</Button>
 			</div>
 		</StyledRules>
 	);

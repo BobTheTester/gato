@@ -32,10 +32,8 @@
       }
   },
   "rules": {
-      "@typescript-eslint/no-unused-vars": "error",
       "arrow-spacing":["warn",{ "before": true, "after": true }],
       "comma-dangle": ["error", "never"],
-      "indent": ["error", "tab"],
       "no-multiple-empty-lines": ["error", {"max": 1}],
       "no-trailing-spaces": ["warn"],
       "no-unused-vars": "off",
@@ -43,8 +41,6 @@
       "quotes": ["error", "single",  { "avoidEscape": true }],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "semi": [2, "always"],
-      "sort-keys": ["error", "asc", {"caseSensitive": true, "natural": false, "minKeys": 2}],
       "switch-colon-spacing": ["error", {"after": true, "before": false}]       
   }
 }
