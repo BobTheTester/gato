@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button, Icon } from 'semantic-ui-react'
 import BackButton from './BackButton'
+import { useDB } from '../contexts/dbContext'
 
 const Centerd = styled.div`
   text-align: center;
@@ -13,10 +14,12 @@ const Centerd = styled.div`
     background-color: #ff2974 !important;
   }
 `
-const Used = ({ id = '', refetch }: { id?: string; refetch: any }) => {
+const Used = ({ id = '' }: { id?: string }) => {
   // const [markAsUsedMutation] = useMarkAsUsedMutation();
+  const { markUsed } = useDB()
   const onClick = () => {
     {
+      markUsed(id)
       // markAsUsedMutation({ variables: { id, used: true } }).then(({ data }) => {
       // 	if(data?.update_bons?.returning[0].used) refetch();
       // });

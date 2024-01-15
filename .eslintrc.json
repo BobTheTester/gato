@@ -6,7 +6,9 @@
   "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
-      "plugin:@typescript-eslint/eslint-recommended"
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:react-hooks/recommended",
+      "prettier"
   ],
   "globals": {
       "Atomics": "readonly",
@@ -23,12 +25,14 @@
   "plugins": [
       "react",
       "react-hooks",
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "prettier"
+
   ],
   "settings": {
       "react": {
         "pragma": "React",  // Pragma to use, default to "React"
-        "version": "16.9.0" // React version, default to the latest React stable release
+        "version": "18.2.0" // React version, default to the latest React stable release
       }
   },
   "rules": {

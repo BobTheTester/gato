@@ -1,12 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-// import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './App.css'
+import StyledRules from './screens/Rules'
+import Bon from './screens/Bon'
+import 'semantic-ui-css/semantic.min.css'
+import UsedBon from './screens/UsedBon'
+import SuperSecret from './screens/SuperSecret'
+import { DBContextProvider } from './contexts/dbContext'
+import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react'
+import './index.css'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root')
+const root = createRoot(container!)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <StyledRules />
+  },
+  { path: '/bon/:id', element: <Bon /> },
+  {
+    path: '/used',
+    element: <UsedBon />
+  },
+  {
+    path: 'supersecret',
+    element: <SuperSecret />
+  }
+])
+
+root.render(
+  <StrictMode>
+    <DBContextProvider>
+      <RouterProvider router={router} />
+    </DBContextProvider>{' '}
+  </StrictMode>
+)

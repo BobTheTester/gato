@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -7,6 +7,7 @@ import usedImage from '../img/used.png'
 import background from '../img/background.jpg'
 import UsedButton from '../components/UsedButton'
 import BackButton from '../components/BackButton'
+import { Bon, useDB } from '../contexts/dbContext'
 
 const StyledBon = styled.div`
   text-align: center;
@@ -41,35 +42,53 @@ const StyledBon = styled.div`
 `
 
 const Resto = () => {
+  const { getBon, isLoading } = useDB()
   const { id = '' } = useParams<{ id: string }>()
+  const [bon, setBon] = useState<Bon | undefined>()
+  useEffect(() => {
+    console.log('is loading')
+    if (isLoading) return
 
-  // if(loading) return <Loading/>;
+    const newBon = getBon(id)
 
-  // if ( data && !data.bons.length || error){
-  // 	if (error) console.error('oops', error);
-  // 	return <Loading text='Pas de bon ici, retourne dormir chatchat'/>;
-  // }
+    if (!newBon?.title) {
+      console.error('oops bon in undefined', newBon)
+      return
+    }
+
+    setBon(newBon)
+  }, [bon, getBon, id, isLoading])
+
+  if (isLoading) return <Loading />
 
   return (
     <StyledBon>
-      {/* {data?.bons[0] && (
-				<>
-					<div key={data.bons[0].id}>
-						{data.bons[0].image && <img className={'main'} src={`/img/${data.bons[0].image}`}/>}
-						<h1 className={'title'}>{data.bons[0].name}</h1>
-						<div className={'description'}>{data.bons[0].text}</div>
+      {bon && (
+        <>
+          <div>
+            {bon.imageUrl && (
+              <img
+                className={'main'}
+                src={bon.imageUrl}
+              />
+            )}
+            <h1 className={'title'}>{bon.title}</h1>
+            <div className={'description'}>{bon.description}</div>
 
-						{data.bons[0].used
-							?
-							<>
-								<img className={'used'} src={usedImage}/><BackButton/>
-							</>
-							: <UsedButton id={data.bons[0].id} refetch={refetch}/>}
-					</div>
-
-				</>
-			)} */}
-      hop hop {id}
+            {bon.isUsed ? (
+              <>
+                <img
+                  className={'used'}
+                  src={usedImage}
+                />
+                <BackButton />
+              </>
+            ) : (
+              <UsedButton id={id} />
+            )}
+          </div>
+        </>
+      )}
     </StyledBon>
   )
 }
