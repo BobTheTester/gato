@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react'
 
 type DBProps = {
   children: ReactNode | ReactNode[]
 }
+
+export type BonMapType = Record<string, Bon>
 
 export interface Bon {
   title: string
@@ -16,7 +18,9 @@ export interface Bon {
 export interface IDBContext {
   isLoading: boolean
   getBon: (id: string) => Bon | undefined
-  markUsed: (id: string) => Promise<void>
+  markUsed: (id: string, isUsed?: boolean) => Promise<void>
+  bons: BonMapType
+  usedBons: BonMapType
 }
 
 const TOKEN = process.env.REACT_APP_PAT
@@ -26,15 +30,23 @@ const GIST_FILENAME = process.env.REACT_APP_GIST_FILENAME || ''
 const DBContext = createContext<IDBContext | undefined>(undefined)
 
 const DBContextProvider = ({ children }: DBProps) => {
-  const [db, setDB] = useState<Record<string, Bon>>({})
+  const [bons, setBons] = useState<BonMapType>({})
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const usedBons = useMemo(() => {
+    const res: BonMapType = {}
+    Object.entries(bons).forEach(([id, bon]) => {
+      if (bon.isUsed) res[id] = bon
+    })
+
+    return res
+  }, [bons])
 
   const setDBFromResponse = useCallback((res: Response) => {
     res
       .json()
       .then((data) => {
-        setDB(JSON.parse(data.files[GIST_FILENAME].content))
+        setBons(JSON.parse(data.files[GIST_FILENAME].content))
         setIsLoading(false)
       })
       .catch((error) => {
@@ -57,25 +69,30 @@ const DBContextProvider = ({ children }: DBProps) => {
     (id: string) => {
       if (isLoading) return
 
-      if (!db[id].imageUrl) {
+      if (!bons[id].imageUrl) {
         return
       }
-      return db[id]
+      return bons[id]
     },
-    [isLoading, db]
+    [isLoading, bons]
   )
 
   const markUsed = useCallback(
-    async (id: string) => {
-      if (!db || isLoading) return
+    async (id: string, isUsed = true) => {
+      if (!bons || isLoading) return
 
-      if (!db[id].title) {
+      if (!bons[id].title) {
         console.error('no bon found for id', id)
       }
 
-      const newDB = { ...db }
-      newDB[id].isUsed = true
-      newDB[id].usedDate = Date.now()
+      const newDB = { ...bons }
+      if (isUsed) {
+        newDB[id].isUsed = true
+        newDB[id].usedDate = Date.now()
+      } else {
+        newDB[id].isUsed = false
+        newDB[id].usedDate = 0
+      }
 
       const req = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
         method: 'PATCH',
@@ -93,7 +110,7 @@ const DBContextProvider = ({ children }: DBProps) => {
 
       setDBFromResponse(req)
     },
-    [db, isLoading, setDBFromResponse]
+    [bons, isLoading, setDBFromResponse]
   )
 
   useEffect(() => {
@@ -109,7 +126,9 @@ const DBContextProvider = ({ children }: DBProps) => {
       value={{
         isLoading,
         getBon,
-        markUsed
+        markUsed,
+        bons,
+        usedBons
       }}
     >
       {children}

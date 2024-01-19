@@ -15,14 +15,10 @@ const Centerd = styled.div`
   }
 `
 const Used = ({ id = '' }: { id?: string }) => {
-  // const [markAsUsedMutation] = useMarkAsUsedMutation();
   const { markUsed } = useDB()
   const onClick = () => {
     {
       markUsed(id)
-      // markAsUsedMutation({ variables: { id, used: true } }).then(({ data }) => {
-      // 	if(data?.update_bons?.returning[0].used) refetch();
-      // });
     }
   }
   return (

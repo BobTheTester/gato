@@ -1,55 +1,66 @@
-import React from 'react';
-import QRCode from 'qrcode.react';
-import styled from 'styled-components';
+import React from 'react'
+import QRCode from 'qrcode.react'
+import styled from 'styled-components'
 
-import patte from '../img/patte-small.png';
-import Loading from '../components/Loading';
-import { Link } from 'react-router-dom';
+import patte from '../img/patte-small.png'
+import Loading from '../components/Loading'
+import { Link } from 'react-router-dom'
+import { useDB } from '../contexts/dbContext'
 
 const StyledUsedBon = styled.div`
-	text-align: center;
+  text-align: center;
 
-	ul {
-		text-align: left;
-        width: 80%;
-        margin: auto;
-        list-style-image: url(${patte});
+  ul {
+    text-align: left;
+    width: 80%;
+    margin: auto;
+    list-style-image: url(${patte});
 
-        li {
-            margin-bottom: .7rem;
-        }
-	}
+    li {
+      margin-bottom: 0.7rem;
+    }
+  }
 
-	canvas {
-		margin: 2rem;
-	}
-`;
+  canvas {
+    margin: 2rem;
+  }
+`
 
 const SuperSecret = () => {
-	const onClick = (id: string) => {
-		{
-			// markAsUsedMutation({ variables: { id, used: false } }).then(({ data }) => {
-			// 	if(!data?.update_bons?.returning[0].used) refetch();
-			// });
-		}
-	};
+  const { isLoading, markUsed, bons } = useDB()
 
-	// if(loading) return <Loading/>;
+  const onClick = (id: string) => {
+    {
+      markUsed(id, false)
+    }
+  }
 
-	// if (error) return <div>{error}</div>;
+  if (isLoading) return <Loading />
 
-	return (
-		<StyledUsedBon>
-			{/* <ul>
-				{data?.bons.map(bon => <li key={bon.id}><Link to={`/bon/${bon.id}`}>{bon.name} {bon.used ? '(used)' : '(unused)'}</Link> <button onClick={() => onClick(bon.id)}>unuse it</button></li>)}
-			</ul>
-			{data?.bons
-			.filter((bon) => !bon.used )
-			.map(bon => <QRCode key={bon.id} value={`https://gato.thib.top/bon/${bon.id}`}/>)} */}
-			{/* <QRCode value={'https://gato.thib.top'}/> */}
-			super secret
-		</StyledUsedBon>
-	);
-};
+  // if (error) return <div>{error}</div>;
 
-export default SuperSecret;
+  return (
+    <StyledUsedBon>
+      <ul>
+        {Object.entries(bons).map(([id, bon]) => (
+          <li key={id}>
+            <Link to={`/bon/${id}`}>
+              {bon.title} {bon.isUsed ? '(used)' : '(unused)'}
+            </Link>{' '}
+            {bon.isUsed && <button onClick={() => onClick(id)}>unuse it</button>}
+          </li>
+        ))}
+      </ul>
+      {Object.entries(bons)
+        .filter(([, bon]) => !bon.isUsed)
+        .map(([id]) => (
+          <QRCode
+            key={id}
+            value={`https://gato.thib.top/bon/${id}`}
+          />
+        ))}
+    </StyledUsedBon>
+  )
+}
+
+export default SuperSecret
