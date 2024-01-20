@@ -72,9 +72,9 @@ const Rules = () => {
         <div>Les boulettes sont de retour en version 2024:</div>
         <br />
         <ul>
-          <li>Des boulettes tu trouveras</li>
-          <li>Toute boulette d́ecouverte est ̀a utiliser sous 7 jours</li>
+          <li>Pas une, mais plusieurs boulettes ̀a la clef</li>
           <li>Une boulette peut en cacher une autre</li>
+          <li>Toute boulette d́ecouverte est ̀a utiliser sous 7 jours</li>
         </ul>
       </div>
       <div className={'buttonContainer'}>
