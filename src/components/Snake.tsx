@@ -9,7 +9,7 @@ export const Snake = () => {
   const [score, setScore] = useState(0)
   const { markUsed, getBon } = useDB()
   const [justWon, setJustWon] = useState(false)
-  const hasWonAlready = useMemo(() => getBon(SNAKE_ID)?.isUsed, [])
+  const hasWonAlready = useMemo(() => getBon(SNAKE_ID)?.isUsed, [getBon])
   const move = ({
     key,
     keyCode,
