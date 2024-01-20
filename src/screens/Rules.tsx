@@ -73,8 +73,8 @@ const Rules = () => {
         <br />
         <ul>
           <li>Des boulettes tu trouveras</li>
-          <li>À utiliser sous 7 jours</li>
-          <li></li>
+          <li>Toute boulette d́ecouverte est ̀a utiliser sous 7 jours</li>
+          <li>Une boulette peut en cacher une autre</li>
         </ul>
       </div>
       <div className={'buttonContainer'}>
