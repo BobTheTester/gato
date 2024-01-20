@@ -27,9 +27,9 @@ export const StyledBon = styled.div`
 
   .description {
     padding: 1rem;
-    background-color: #fffc;
-    margin: 0 1rem 0 1rem;
-    border-radius: 1rem;
+    background-color: #f5f5f5cc;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 
   .title {
@@ -49,6 +49,9 @@ export const StyledBon = styled.div`
 
   img.main {
     width: 100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    display: block;
   }
 
   img.used {
@@ -82,6 +85,10 @@ export const StyledBon = styled.div`
     margin-top: 1rem;
     color: white !important;
     background-color: #ff2974 !important;
+  }
+
+  .image-desc-wrapper {
+    margin: 1rem 1rem 0 1rem;
   }
 `
 
@@ -117,7 +124,7 @@ const BonDisplay = () => {
               <Snake />
             </div>
           ) : (
-            <div>
+            <div className="image-desc-wrapper">
               <img
                 className={'main'}
                 src={bon.imageUrl}

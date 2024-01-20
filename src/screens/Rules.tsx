@@ -46,7 +46,7 @@ const StyledRules = styled.div`
 
   .rulesWrapper {
     padding: 1rem;
-    background-color: #fffc;
+    background-color: #f5f5f5cc;
     margin: 0 1rem 0 1rem;
     border-radius: 1rem;
     width: 95%;
@@ -72,9 +72,9 @@ const Rules = () => {
         <div>Les boulettes sont de retour en version 2024:</div>
         <br />
         <ul>
-          <li>Pas une, mais plusieurs boulettes ̀a la clef</li>
+          <li>Pas une, mais plusieurs boulettes à la clef</li>
           <li>Une boulette peut en cacher une autre</li>
-          <li>Toute boulette d́ecouverte est ̀a utiliser sous 7 jours</li>
+          <li>Toute boulette d́ecouverte est à utiliser sous 7 jours</li>
         </ul>
       </div>
       <div className={'buttonContainer'}>
