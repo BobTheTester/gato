@@ -143,17 +143,17 @@ const BonDisplay = () => {
               />
               <h1 className={'title'}>{bon.title}</h1>
               <div className={'description'}>{bon.description}</div>
-              {id === SNAKE_ID && (
-                <Button
-                  className="snakeButton"
-                  onClick={() => setShowSnakeInstructions(false)}
-                >
-                  Montre !!
-                </Button>
-              )}
             </div>
           )}
           <div className="footerButtonWrapper">
+            {id === SNAKE_ID && (
+              <Button
+                className="snakeButton"
+                onClick={() => setShowSnakeInstructions(false)}
+              >
+                Montre !!
+              </Button>
+            )}
             {bon.isUsed && (id !== SNAKE_ID || showSnakeInstructions) ? (
               <>
                 <img
