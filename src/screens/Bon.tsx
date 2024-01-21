@@ -17,10 +17,6 @@ export const StyledBon = styled.div`
   background-repeat: repeat;
   min-height: 100vh;
 
-  .paw.icon {
-    margin: 0 !important;
-  }
-
   .snakeBoard {
     margin: auto;
   }
@@ -74,6 +70,10 @@ export const StyledBon = styled.div`
       min-height: 5rem;
       min-width: 5rem;
       margin: 0px 1rem 0px 0px;
+    }
+
+    .paw.icon {
+      margin: 0 !important;
     }
   }
 
