@@ -20,5 +20,9 @@ jobs:
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
+        env:
+          REACT_APP_PAT: ${{ secrets.REACT_APP_PAT }}
+          REACT_APP_GIST_ID: ${{ secrets.REACT_APP_GIST_ID }}
+          REACT_APP_GIST_FILENAME: ${{ secrets.REACT_APP_GIST_FILENAME }}
         with:
           folder: build # The folder the action should deploy.
