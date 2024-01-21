@@ -55,9 +55,19 @@ export const StyledBon = styled.div`
     position: absolute;
     top: 6rem;
     left: 10%;
-    image-orientation: 30deg;
     transform: rotate(-30deg);
     opacity: 30%;
+    animation: spinner 500ms;
+    @keyframes spinner {
+      from {
+        transform: scale(500%) rotate(0deg);
+        opacity: 100%;
+      }
+      to {
+        transform: rotate(-30deg) scale(100%);
+        opacity: 30%;
+      }
+    }
   }
 
   .first-row {
@@ -145,7 +155,7 @@ const BonDisplay = () => {
             {bon.isUsed && (id !== SNAKE_ID || showSnakeInstructions) ? (
               <>
                 <img
-                  className={'used'}
+                  className="used"
                   src={usedImage}
                 />
                 <BackButton />
