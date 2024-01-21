@@ -74,7 +74,7 @@ const Rules = () => {
         <ul>
           <li>Pas une, mais plusieurs boulettes à la clef</li>
           <li>Une boulette peut en cacher une autre</li>
-          <li>Toute boulette d́ecouverte est à utiliser sous 7 jours</li>
+          <li>Toute boulette découverte est à utiliser sous 7 jours</li>
         </ul>
       </div>
       <div className={'buttonContainer'}>
