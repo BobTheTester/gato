@@ -99,6 +99,8 @@ export const StyledBon = styled.div`
 
   .image-desc-wrapper {
     margin: 1rem 1rem 0 1rem;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
   }
 `
 

@@ -50,6 +50,7 @@ const StyledRules = styled.div`
     margin: 0 1rem 0 1rem;
     border-radius: 1rem;
     width: 95%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 `
 
