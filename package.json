@@ -2,6 +2,7 @@
   "name": "gato",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gato.thib.top",
   "dependencies": {
     "gh-pages": "^6.1.1",
     "moment": "^2.24.0",
