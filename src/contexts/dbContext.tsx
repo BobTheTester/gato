@@ -23,7 +23,7 @@ export interface IDBContext {
   usedBons: BonMapType
 }
 
-const TOKEN = process.env.REACT_APP_PAT
+const TOKEN = `github_pat_11API3QVI05hq5aGZhQQIz${process.env.REACT_APP_PAT}`
 const GIST_ID = process.env.REACT_APP_GIST_ID
 const GIST_FILENAME = process.env.REACT_APP_GIST_FILENAME || ''
 
