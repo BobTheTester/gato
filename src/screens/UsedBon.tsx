@@ -32,6 +32,15 @@ const StyledUsedBon = styled.div`
     margin-bottom: 1rem;
     max-width: 400px;
   }
+
+  .usedWrapper {
+    padding: 1rem;
+    background-color: #f5f5f5cc;
+    margin: 0 1rem 0 1rem;
+    border-radius: 1rem;
+    width: 95%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 `
 
 const UsedBon = () => {
@@ -48,18 +57,20 @@ const UsedBon = () => {
   return (
     <StyledUsedBon>
       <img
-        className={'used'}
+        className="used"
         src={usedImage}
       />
-      <ul>
-        {Object.entries(usedBons).map(([id, bon]) => (
-          <li key={id}>
-            <Link to={`/bon/${id}`}>
-              {bon.title} (utilisé le {moment(bon.usedDate).format('DD/MM/Y')})
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="usedWrapper">
+        <ul>
+          {Object.entries(usedBons).map(([id, bon]) => (
+            <li key={id}>
+              <Link to={`/bon/${id}`}>
+                {bon.title} (utilisé le {moment(bon.usedDate).format('DD/MM/Y')})
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       <BackButton />
     </StyledUsedBon>
   )

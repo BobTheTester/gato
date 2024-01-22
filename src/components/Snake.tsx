@@ -3,13 +3,25 @@ import React, { useMemo, useState } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { Snake as SnakeLib } from 'react-snake-lib'
 import { useDB } from '../contexts/dbContext'
-import { SNAKE_ID } from '../screens/Bon'
+import { SNAKE_ID, StyledFooterWrapper } from '../screens/Bon'
+import styled from 'styled-components'
+import { ImageDesc } from './ImageDesc'
+import BackButton from './BackButton'
 
-export const Snake = () => {
+interface Props {
+  className?: string
+}
+
+const WINNING_SCORE = 30
+
+const SnakeDisplay = ({ className }: Props) => {
   const [score, setScore] = useState(0)
   const { markUsed, getBon } = useDB()
+  const bon = useMemo(() => getBon(SNAKE_ID), [getBon])
   const [justWon, setJustWon] = useState(false)
-  const hasWonAlready = useMemo(() => getBon(SNAKE_ID)?.isUsed, [getBon])
+  const hasWonAlready = useMemo(() => bon?.isUsed, [bon?.isUsed])
+  const [showSnakeInstructions, setShowSnakeInstructions] = useState(true)
+
   const move = ({
     key,
     keyCode,
@@ -38,7 +50,7 @@ export const Snake = () => {
 
   const onScoreChange = (score: number) => {
     setScore(score)
-    if (score >= 30 && !hasWonAlready) {
+    if (score >= WINNING_SCORE && !hasWonAlready) {
       markUsed(SNAKE_ID)
       setJustWon(true)
     }
@@ -48,8 +60,22 @@ export const Snake = () => {
     setScore(0)
   }
 
+  if (showSnakeInstructions && !!bon) {
+    return (
+      <ButtonWrapperStyled>
+        <ImageDesc bon={bon} />
+        <Button
+          className="snakeButton"
+          onClick={() => setShowSnakeInstructions(false)}
+        >
+          Montre !!
+        </Button>
+      </ButtonWrapperStyled>
+    )
+  }
+
   return (
-    <>
+    <div className={className}>
       {justWon && <Confetti />}
       <SnakeLib
         onScoreChange={onScoreChange}
@@ -61,7 +87,7 @@ export const Snake = () => {
         innerBorderColor="#f0eeee"
         snakeSpeed={90}
         borderColor="black"
-        snakeColor="rgb(202, 57, 190)"
+        snakeColor="#ff2974"
         snakeHeadColor="rgb(131, 36, 123)"
         appleColor="white"
         borderRadius={5}
@@ -78,10 +104,11 @@ export const Snake = () => {
           borderRadius: '10px',
           fontSize: '17px',
           fontWeight: '600',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          boxShadow: 'rgba(70, 70, 70, 0.4) 2px 3px 5px 0px'
         }}
         startButtonHoverStyle={{
-          backgroundColor: '#be1e56'
+          backgroundColor: '#eb83a8'
         }}
         noWall={true}
       />
@@ -99,10 +126,13 @@ export const Snake = () => {
             })
           }
         >
-          <Icon name="paw" />
+          <Icon
+            name="paw"
+            size="large"
+          />
         </Button>
       </div>
-      <div>
+      <div className="second-row">
         <Button
           onClick={() =>
             move({
@@ -116,6 +146,7 @@ export const Snake = () => {
           <Icon
             name="paw"
             rotated="counterclockwise"
+            size="large"
           />
         </Button>
         <Button
@@ -131,6 +162,7 @@ export const Snake = () => {
           <Icon
             name="paw"
             flipped="vertically"
+            size="large"
           />
         </Button>
         <Button
@@ -146,9 +178,51 @@ export const Snake = () => {
           <Icon
             name="paw"
             rotated="clockwise"
+            size="large"
           />
         </Button>
       </div>
-    </>
+      <StyledFooterWrapper>
+        <BackButton />
+      </StyledFooterWrapper>
+    </div>
   )
 }
+
+export const Snake = styled(SnakeDisplay)`
+  .snakeBoard {
+    margin: auto;
+  }
+
+  .first-row,
+  .second-row {
+    .ui.button {
+      min-height: 5rem;
+      min-width: 5rem;
+      margin: 0px 1rem 0px 0px;
+      color: white !important;
+      background-color: #ff2974 !important;
+    }
+
+    .paw.icon {
+      margin: 0 !important;
+    }
+  }
+
+  .first-row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .second-row {
+    margin-bottom: 3rem;
+  }
+`
+
+const ButtonWrapperStyled = styled('div')`
+  .snakeButton {
+    margin-top: 1rem;
+    color: white !important;
+    background-color: #ff2974 !important;
+  }
+`
