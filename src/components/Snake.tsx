@@ -81,8 +81,8 @@ const SnakeDisplay = ({ className }: Props) => {
         onScoreChange={onScoreChange}
         onGameOver={onGameOver}
         // onGameStart={onGameStart}
-        width="400px"
-        height="400px"
+        width="350px"
+        height="350px"
         bgColor="rgb(240, 215, 238)"
         innerBorderColor="#f0eeee"
         snakeSpeed={90}
