@@ -1,5 +1,5 @@
 import Confetti from 'react-confetti'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { Snake as SnakeLib } from 'react-snake-lib'
 import { useDB } from '../contexts/dbContext'
@@ -16,7 +16,7 @@ const WINNING_SCORE = 30
 
 const SnakeDisplay = ({ className }: Props) => {
   const [score, setScore] = useState(0)
-  const { markUsed, getBon } = useDB()
+  const { markUsed, getBon, highScore, changeHighScore } = useDB()
   const bon = useMemo(() => getBon(SNAKE_ID), [getBon])
   const [justWon, setJustWon] = useState(false)
   const hasWonAlready = useMemo(() => bon?.isUsed, [bon?.isUsed])
@@ -48,17 +48,29 @@ const SnakeDisplay = ({ className }: Props) => {
     document.dispatchEvent(keyEvent)
   }
 
-  const onScoreChange = (score: number) => {
-    setScore(score)
-    if (score >= WINNING_SCORE && !hasWonAlready) {
-      markUsed(SNAKE_ID)
+  const onScoreChange = useCallback(
+    (score: number) => {
+      setScore(score)
+      if (score >= WINNING_SCORE && !hasWonAlready) {
+        markUsed(SNAKE_ID)
+        setJustWon(true)
+      }
+    },
+    [hasWonAlready, markUsed]
+  )
+
+  const onGameOver = useCallback(() => {
+    const hasWon = score > highScore
+    if (hasWon) {
+      changeHighScore(score)
       setJustWon(true)
     }
-  }
-
-  const onGameOver = () => {
     setScore(0)
-  }
+  }, [changeHighScore, highScore, score])
+
+  const onGameStart = useCallback(() => {
+    setJustWon(false)
+  }, [])
 
   if (showSnakeInstructions && !!bon) {
     return (
@@ -80,7 +92,7 @@ const SnakeDisplay = ({ className }: Props) => {
       <SnakeLib
         onScoreChange={onScoreChange}
         onGameOver={onGameOver}
-        // onGameStart={onGameStart}
+        onGameStart={onGameStart}
         width="350px"
         height="350px"
         bgColor="rgb(240, 215, 238)"
@@ -115,6 +127,7 @@ const SnakeDisplay = ({ className }: Props) => {
       <div>
         Score: {score} croquette{score > 1 ? 's' : ''}
       </div>
+      <div>High score: {highScore} croquettes</div>
       <div className="first-row">
         <Button
           onClick={() =>
