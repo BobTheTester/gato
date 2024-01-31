@@ -65,7 +65,7 @@ const UsedBon = () => {
           {Object.entries(usedBons).map(([id, bon]) => (
             <li key={id}>
               <Link to={`/bon/${id}`}>
-                {bon.title} (utilisé le {moment(bon.usedDate).format('DD/MM/Y')})
+                {bon.title} (utilisée le {moment(bon.usedDate).format('DD/MM/Y')})
               </Link>
             </li>
           ))}
