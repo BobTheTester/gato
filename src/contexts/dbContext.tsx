@@ -26,7 +26,7 @@ export interface IDBContext {
   changeHighScore: (newHighScore: number) => void
 }
 
-const TOKEN = `github_pat_11API3QVI05hq5aGZhQQIz${process.env.REACT_APP_PAT}`
+const TOKEN = `github_pat_11API3QVI0Nz6WriIDd02Z${process.env.REACT_APP_PAT}`
 const GIST_DB_ID = process.env.REACT_APP_GIST_ID
 const GIST_BONS_FILENAME = process.env.REACT_APP_GIST_FILENAME || ''
 const GIST_SCORE_ID = 'a3059fec9951567b98e1b5df2b65f1a1'
